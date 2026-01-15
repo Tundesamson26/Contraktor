@@ -47,7 +47,7 @@ export function ServiceRequestForm({ artisanId }: ServiceRequestFormProps) {
   };
 
   return (
-    <div className="bg-card text-card-foreground rounded-3xl border border-border/80 shadow-xl p-8 sticky top-24">
+    <div className="bg-muted/40 text-card-foreground rounded-3xl border border-border/50 shadow-sm p-6">
       {success && (
         <div className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-2xl flex items-center gap-3 text-green-600 font-bold text-sm animate-in fade-in slide-in-from-top-4 duration-500">
           <CheckCircle size={20} className="shrink-0" />

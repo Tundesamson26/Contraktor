@@ -41,7 +41,7 @@ export function SearchFilters() {
         params.delete('search');
     }
     params.set('page', '1');
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, 300);
 
   const handleTradeChange = (newTrade: string) => {
@@ -52,7 +52,7 @@ export function SearchFilters() {
         params.delete('trade');
     }
     params.set('page', '1');
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
     setIsDropdownOpen(false);
   }
 

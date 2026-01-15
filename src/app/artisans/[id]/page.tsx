@@ -4,9 +4,10 @@ import { useParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { fetchArtisanById } from "@/lib/features/artisansSlice";
 import { ServiceRequestForm } from "@/components/features/ServiceRequestForm";
-import { Star, MapPin, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { Star, MapPin, CheckCircle, XCircle, Loader2, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import Link from 'next/link';
 
 export default function ArtisanProfilePage() {
   const params = useParams();
@@ -36,7 +37,15 @@ export default function ArtisanProfilePage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-7xl">
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
+      <Link 
+        href="/"
+        className="inline-flex items-center gap-2 px-6 py-3 mb-8 bg-card/60 backdrop-blur-md border border-border/50 rounded-2xl text-sm font-bold text-muted-foreground hover:text-primary transition-all hover:bg-card hover:shadow-xl hover:-translate-x-1 group"
+      >
+        <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+        Back to Explore
+      </Link>
+
       {/* Hero Section */}
       <div className="bg-card text-card-foreground rounded-3xl shadow-xl overflow-hidden mb-12 border border-border/50">
         <div className="h-72 w-full relative">
@@ -135,7 +144,7 @@ export default function ArtisanProfilePage() {
 
         {/* Request Service Form */}
         <div className="relative">
-          <div className="sticky top-24">
+          <div>
             <h2 className="text-3xl font-heading font-black mb-8 tracking-tight">Hire Now</h2>
             <ServiceRequestForm artisanId={selectedArtisan.id} />
           </div>
