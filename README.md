@@ -52,54 +52,50 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 ```
 src/
 ├── app/                    # Next.js App Router pages
-│   ├── page.tsx           # Explore Artisans (home)
-│   ├── artisans/[id]/     # Artisan Profile
-│   └── admin/             # Admin Dashboard
+│   ├── api/               # Internal API Routes
+│   │   ├── artisans/      # Artisan list & filtering
+│   │   ├── artisans/[id]/ # Individual artisan details
+│   │   ├── requests/      # Service request submission
+│   │   └── analytics/     # Dashboard statistics
+│   ├── artisans/[id]/     # Artisan Profile Page
+│   ├── admin/             # Admin Dashboard Page
+│   └── page.tsx           # Explore Artisans Home
 ├── components/
-│   ├── features/          # Feature components
+│   ├── features/          # Feature-specific components (ArtisanCard, Pagination, etc.)
 │   ├── layout/            # Layout components (Navbar)
-│   └── ui/                # Reusable UI components
+│   ├── providers/         # Context providers (ThemeProvider)
+│   └── ui/                # Base UI components (shadcn/ui style)
 ├── lib/
-│   ├── features/          # Redux slices
-│   ├── mock-api.ts        # Mock API implementation
+│   ├── features/          # Redux Toolkit slices
+│   ├── __tests__/         # Unit tests
+│   ├── data.ts            # Centralized mock dataset
+│   ├── mock-api.ts        # Client-side API service (fetch)
 │   ├── store.ts           # Redux store configuration
-│   └── utils.ts           # Utility functions
-└── types/                 # TypeScript type definitions
+│   ├── hooks.ts           # Typed Redux hooks
+│   └── utils.ts           # Utility functions (cn, etc.)
+└── types/                 # TypeScript interfaces
 ```
 
-## State Management Justification
+## Key Decisions
 
-**Redux Toolkit** was chosen for state management because:
-- Provides predictable state updates with clear action/reducer patterns
-- Built-in async handling with `createAsyncThunk`
-- Excellent TypeScript support
-- DevTools integration for debugging
-- Scales well for complex applications with multiple data sources
+- **URL-Based State**: Search, trade filters, and pagination are synced with the URL. This enables browser history support and shareable search results.
+- **Glassmorphism UI**: Used a premium "glass" aesthetic with `backdrop-blur` and high-contrast typography to create a high-end feel.
+- **Zod for Validation**: Implemented schema-based validation for the "Request Service" form to ensure data integrity before submission.
+- **Redux for Global State**: While small, Redux was implemented to demonstrate the ability to scale for complex features like user session management or a global "saved artisans" list.
 
-## Testing
+## Tradeoffs
 
-The project includes unit tests for core functionality:
-- Mock API filtering and pagination logic
-- Service request submission
+- **Client vs Server Rendering**: Used `use client` for filtering-intensive sections to provide instant feedback, while leveraging Next.js layouts for SEO.
+- **Mock Data over real DB**: Used a static dataset for speed of development while maintaining the API structure so it can be swapped for a real DB (PostgreSQL/MongoDB) with minimal changes.
+- **Vanilla CSS vs Tailwind**: Opted for Tailwind for rapid development and consistent spacing/theming while using custom HSL vars for brand colors.
 
-Run tests with:
-```bash
-npm test
-```
+## Future Improvements
 
-## Accessibility
-
-- Semantic HTML elements
-- ARIA labels on interactive elements
-- Keyboard navigation support
-- Focus states on all interactive elements
-
-## Performance Optimizations
-
-- Debounced search input (300ms)
-- Image optimization with Next.js Image component
-- Code splitting via Next.js App Router
-- Memoization where appropriate
+- **Authentication**: Implementing NextAuth.js for artisan/client login.
+- **Real-time Chat**: Integration of Socket.io for direct communication between clients and artisans.
+- **Review System**: A dedicated database-backed review and rating system.
+- **Map Integration**: Using Google Maps API to show artisan locations.
+- **Optimistic UI**: Using React `useOptimistic` for form submissions to make the app feel even faster.
 
 ## License
 
