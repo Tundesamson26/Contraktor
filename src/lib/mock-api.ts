@@ -10,9 +10,9 @@ const MOCK_ARTISANS: Artisan[] = Array.from({ length: 24 }).map((_, i) => ({
   avatar: `https://i.pravatar.cc/150?u=artisan-${i + 1}`,
   bio: "Experienced professional with over 10 years in the field.",
   portfolio: [
-    "https://images.unsplash.com/photo-1589939705384-5185137a7f0f",
-    "https://images.unsplash.com/photo-1503387762-592deb58ef4e",
-    "https://images.unsplash.com/photo-1534237710431-e2fc698436d5"
+    "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1595841696662-50d4d7756f64?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800"
   ]
 }));
 

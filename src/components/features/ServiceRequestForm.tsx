@@ -47,84 +47,86 @@ export function ServiceRequestForm({ artisanId }: ServiceRequestFormProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6">
+    <div className="bg-card text-card-foreground rounded-3xl border border-border/80 shadow-xl p-8 sticky top-24">
       {success && (
-        <div className="mb-4 p-4 bg-green-50 border border-green-200 rounded-md flex items-center gap-2 text-green-700">
-          <CheckCircle size={20} />
-          <span>Request submitted successfully!</span>
+        <div className="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-2xl flex items-center gap-3 text-green-600 font-bold text-sm animate-in fade-in slide-in-from-top-4 duration-500">
+          <CheckCircle size={20} className="shrink-0" />
+          <span>Request submitted successfully! We'll be in touch soon.</span>
         </div>
       )}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <label htmlFor="clientName" className="block text-sm font-medium mb-1">
-            Your Name *
-          </label>
-          <input
-            id="clientName"
-            type="text"
-            {...register("clientName")}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="John Doe"
-          />
-          {errors.clientName && (
-            <p className="text-red-500 text-xs mt-1">{errors.clientName.message}</p>
-          )}
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <div className="space-y-4">
+          <div>
+            <label htmlFor="clientName" className="block text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1.5 ml-1">
+              Your Full Name
+            </label>
+            <input
+              id="clientName"
+              type="text"
+              {...register("clientName")}
+              className="w-full px-4 py-3 bg-muted/30 border border-transparent rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-gray-900 transition-all placeholder:text-muted-foreground/40 text-sm"
+              placeholder="John Doe"
+            />
+            {errors.clientName && (
+              <p className="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1.5 ml-1">{errors.clientName.message}</p>
+            )}
+          </div>
 
-        <div>
-          <label htmlFor="clientEmail" className="block text-sm font-medium mb-1">
-            Email *
-          </label>
-          <input
-            id="clientEmail"
-            type="email"
-            {...register("clientEmail")}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="john@example.com"
-          />
-          {errors.clientEmail && (
-            <p className="text-red-500 text-xs mt-1">{errors.clientEmail.message}</p>
-          )}
-        </div>
+          <div>
+            <label htmlFor="clientEmail" className="block text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1.5 ml-1">
+              Email Address
+            </label>
+            <input
+              id="clientEmail"
+              type="email"
+              {...register("clientEmail")}
+              className="w-full px-4 py-3 bg-muted/30 border border-transparent rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-gray-900 transition-all placeholder:text-muted-foreground/40 text-sm"
+              placeholder="john@example.com"
+            />
+            {errors.clientEmail && (
+              <p className="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1.5 ml-1">{errors.clientEmail.message}</p>
+            )}
+          </div>
 
-        <div>
-          <label htmlFor="date" className="block text-sm font-medium mb-1">
-            Preferred Date *
-          </label>
-          <input
-            id="date"
-            type="date"
-            {...register("date")}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-          {errors.date && (
-            <p className="text-red-500 text-xs mt-1">{errors.date.message}</p>
-          )}
-        </div>
+          <div>
+            <label htmlFor="date" className="block text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1.5 ml-1">
+              Preferred Date
+            </label>
+            <input
+              id="date"
+              type="date"
+              {...register("date")}
+              className="w-full px-4 py-3 bg-muted/30 border border-transparent rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-gray-900 transition-all text-sm"
+            />
+            {errors.date && (
+              <p className="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1.5 ml-1">{errors.date.message}</p>
+            )}
+          </div>
 
-        <div>
-          <label htmlFor="details" className="block text-sm font-medium mb-1">
-            Project Details *
-          </label>
-          <textarea
-            id="details"
-            {...register("details")}
-            rows={4}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="Describe your project requirements..."
-          />
-          {errors.details && (
-            <p className="text-red-500 text-xs mt-1">{errors.details.message}</p>
-          )}
+          <div>
+            <label htmlFor="details" className="block text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1.5 ml-1">
+              Project Details
+            </label>
+            <textarea
+              id="details"
+              {...register("details")}
+              rows={4}
+              className="w-full px-4 py-3 bg-muted/30 border border-transparent rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary focus:bg-white dark:focus:bg-gray-900 transition-all placeholder:text-muted-foreground/40 text-sm resize-none"
+              placeholder="Describe your requirements in detail..."
+            />
+            {errors.details && (
+              <p className="text-red-500 text-[10px] font-bold uppercase tracking-wider mt-1.5 ml-1">{errors.details.message}</p>
+            )}
+          </div>
         </div>
 
         <button
           type="submit"
           disabled={submitting}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full bg-primary hover:bg-primary/90 text-white font-black uppercase tracking-widest py-4 px-6 rounded-2xl shadow-lg shadow-primary/20 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-xs"
         >
           {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
-          {submitting ? "Submitting..." : "Submit Request"}
+          {submitting ? "Processing..." : "Submit Request"}
         </button>
       </form>
     </div>

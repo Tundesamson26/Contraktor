@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import StoreProvider from "./StoreProvider";
 import { Navbar } from "@/components/layout/Navbar";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -25,16 +26,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${inter.variable} ${outfit.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
-        <StoreProvider>
-          <Navbar />
-          <main className="flex-1">
-            {children}
-          </main>
-        </StoreProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <StoreProvider>
+            <Navbar />
+            <main className="flex-1">
+              {children}
+            </main>
+          </StoreProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

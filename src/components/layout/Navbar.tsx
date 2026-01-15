@@ -1,29 +1,75 @@
+'use client';
+
 import Link from 'next/link';
-import { Search, UserCircle, Briefcase } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Search, UserCircle, Briefcase, Menu, Sun, Moon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 export function Navbar() {
+  const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const navLinks = [
+    { name: 'Explore', href: '/' },
+    { name: 'Admin', href: '/admin' },
+  ];
+
   return (
-    <nav className="border-b bg-white dark:bg-gray-950 sticky top-0 z-50">
+    <nav className="glass sticky top-0 z-50 w-full">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 font-bold text-xl text-primary">
-            <Briefcase className="h-6 w-6" />
-            <span>Contraktor</span>
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="bg-primary text-primary-foreground p-2 rounded-2xl transition-all group-hover:scale-110 shadow-lg shadow-primary/20">
+            <Briefcase className="h-5 w-5" />
+          </div>
+          <span className="font-heading font-black text-xl tracking-tight">Contraktor</span>
         </Link>
-        <div className="flex items-center gap-6">
-            <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">
-                Explore
-            </Link>
-            <Link href="/admin" className="text-sm font-medium hover:text-primary transition-colors">
-                Admin
-            </Link>
+        
+        <div className="hidden md:flex items-center gap-1 bg-muted/50 p-1.5 rounded-2xl border border-border/40">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={cn(
+                  "px-5 py-2 rounded-xl text-sm font-bold transition-all duration-300",
+                  isActive 
+                    ? "bg-card text-primary shadow-sm ring-1 ring-border/50" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-card/50"
+                )}
+              >
+                {link.name}
+              </Link>
+            );
+          })}
         </div>
-        <div className="flex items-center gap-4">
-             <button className="p-2 hover:bg-gray-100 rounded-full dark:hover:bg-gray-800">
-                <Search className="h-5 w-5 text-gray-500" />
+
+        <div className="flex items-center gap-2">
+          {mounted && (
+            <button 
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="p-2.5 text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-2xl transition-all active:scale-95 border border-transparent hover:border-primary/10"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
-            <button className="p-2 hover:bg-gray-100 rounded-full dark:hover:bg-gray-800">
-                <UserCircle className="h-6 w-6 text-gray-500" />
-            </button>
+          )}
+          <button className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-accent rounded-2xl transition-colors">
+            <Search className="h-5 w-5" />
+          </button>
+          <button className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-accent rounded-2xl transition-colors">
+            <UserCircle className="h-5 w-5" />
+          </button>
+          <button className="p-2.5 md:hidden text-muted-foreground hover:text-foreground hover:bg-accent rounded-2xl transition-colors">
+            <Menu className="h-5 w-5" />
+          </button>
         </div>
       </div>
     </nav>
