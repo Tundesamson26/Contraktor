@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { fetchArtisans } from "@/lib/features/artisansSlice";
 import { ArtisanCard } from "./ArtisanCard";
 import { Loader2 } from "lucide-react";
+import { Pagination } from "./Pagination";
 
 interface ArtisanListProps {
   page: number;
@@ -14,9 +15,10 @@ interface ArtisanListProps {
 export function ArtisanList({ page, search = "", trade = "" }: ArtisanListProps) {
   const dispatch = useAppDispatch();
   const { items, status, total } = useAppSelector((state) => state.artisans);
+  const itemsPerPage = 8;
 
   useEffect(() => {
-    dispatch(fetchArtisans({ page, search, trade }));
+    dispatch(fetchArtisans({ page, limit: itemsPerPage, search, trade }));
   }, [dispatch, page, search, trade]);
 
   if (status === 'loading') {
@@ -50,9 +52,12 @@ export function ArtisanList({ page, search = "", trade = "" }: ArtisanListProps)
           <ArtisanCard key={artisan.id} artisan={artisan} />
         ))}
       </div>
-      <div className="mt-8 text-center text-sm text-gray-500">
-        Showing {items.length} of {total} artisans
+      
+      <div className="mt-8 text-center text-sm font-bold text-muted-foreground/60 uppercase tracking-widest">
+        Showing {Math.min((page - 1) * itemsPerPage + 1, total)}-{Math.min(page * itemsPerPage, total)} of {total} artisans
       </div>
+
+      <Pagination totalItems={total} itemsPerPage={itemsPerPage} />
     </div>
   );
 }

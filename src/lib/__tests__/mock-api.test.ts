@@ -3,10 +3,10 @@ import { mockApi } from '@/lib/mock-api';
 
 describe('Mock API', () => {
   it('should filter artisans by search term', async () => {
-    const result = await mockApi.getArtisans(1, 8, 'Artisan 1');
+    const result = await mockApi.getArtisans(1, 8, 'James Wilson');
     
     expect(result.data.length).toBeGreaterThan(0);
-    expect(result.data.every(a => a.name.includes('Artisan 1'))).toBe(true);
+    expect(result.data.every(a => a.name.includes('James Wilson'))).toBe(true);
   });
 
   it('should filter artisans by trade', async () => {

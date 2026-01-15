@@ -88,7 +88,7 @@ export function Navbar() {
 
         {/* Mobile Menu Drawer */}
         {isMobileMenuOpen && (
-          <div className="absolute top-16 left-0 right-0 p-4 bg-card border-b border-border shadow-2xl z-50 md:hidden animate-in slide-in-from-top-4 duration-300">
+          <div className="fixed top-16 left-0 right-0 bottom-0 p-4 bg-card/95 backdrop-blur-md border-b border-border shadow-2xl z-50 md:hidden animate-in slide-in-from-top-4 duration-300">
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => {
                 const isActive = pathname === link.href;
